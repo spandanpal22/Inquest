@@ -19,5 +19,9 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 # Register your models here.
-admin.site.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question', 'id')
+
+
+admin.site.register(Question, QuestionAdmin)
 admin.site.register(Event)
