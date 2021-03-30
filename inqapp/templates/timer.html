@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <title>Inquest</title>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Inquest is the online treasure hunt of the official techno-management fest of National
     Institute of Technology, Durgapur organised by Centre for Cognitive Activities(CCA)"/>
@@ -33,7 +28,6 @@
     <script>
         var OneSignal = window.OneSignal || [];
         var initConfig = {
-            {#appId: "89911c87-6fb0-4566-b3a8-4d847055d628",#}
             appId: "5cc55361-23b3-42f3-a60f-d0f0729342ed",
             notifyButton: {
                 enable: true
@@ -46,7 +40,6 @@
             OneSignal.init(initConfig);
         });
     </script>
-
 
     <link rel="icon" type="image/png" href="{% static "img/NEW-CCA-Logo.png" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}"/>
@@ -61,6 +54,7 @@
     {#    <link rel="stylesheet" type="text/css" href="{% static "css/landing.css" %}" />#}
     <link rel="stylesheet" href="{% static "css/timerPageBg.css" %}">
     <link rel="stylesheet" href="{% static "css/countdowntime.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %}" />
     <style>
         .imlogo {
             width: 100px;
@@ -82,10 +76,40 @@
 </head>
 <body>
 
-<div class="logos">
+<!-- <div class="logos">
     <img class="imlogo" src="{% static "img/NEW-CCA-Logo_Colored.png" %}" alt="CCA"/>
     <img class="imlogo" src="{% static "img/WDCT_logo_white.png" %}" alt="WDCT"/>
-</div>
+</div> -->
+<!-- navbar -->
+<nav class="nav" style="position: absolute; top:0;">
+    <div class="container" id="nav-cont">
+      <div class="logo">
+        <a href="../">
+          <img src="{% static "img/NEW-CCA-Logo_Colored.png" %}" style="width:100px" />
+          <img src="{% static "img/WDCT_logo_white.png" %}" style="width:100px" />
+        </a>
+      </div>
+      <div id="mainListDiv" class="main_list">
+        <ul class="navlinks">
+          <li><a href="../">Home</a></li>
+          <li><a href="{% url 'leaderboard' %}">Leaderboard</a></li>
+          <li><a href="{% url 'contact' %}">Contact Us</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a href="../"> Hi {{ user.name }} !</a></li>
+          {% else %}
+          <li><a href="{% url 'signin' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <span class="navTrigger">
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+    </div>
+  </nav>
 
 <div id="message">
     <div class="container cont">
@@ -105,17 +129,18 @@
 <script src="{% static "vendor/daterangepicker/daterangepicker.js" %}"></script>
 <script src="{% static "vendor/countdowntime/countdowntime.js" %}"></script>
 
+<script src="{% static "js/nav.js" %}"></script>
 <script src="{% static "js/timerPageBg.js" %}"></script>
 <script src="{% static "js/countdowntime.js" %}"></script>
 <script>
-
     window.onload = function start() {
         dispPlay();
     };
 
     function dispPlay() {
         window.setInterval(function () {
-            var start = new Date(2020, 7, 30, 20, 52, 0, 0); //set the event start time manually here.Note: In javascript months start from 0.
+            // var start = new Date(2020, 6, 30, 20, 52, 0, 0); //set the event start time manually here.Note: In javascript months start from 0.
+            var start = new Date("{{ starttimeJs.isoformat }}");
             var now = new Date();
             if (now >= start) {
                 location.reload();
@@ -123,7 +148,6 @@
         }, 1000);
     }
 </script>
-
 <script>
 
 </script>
