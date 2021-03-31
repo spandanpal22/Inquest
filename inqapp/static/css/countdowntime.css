@@ -13,3 +13,13 @@
   z-index:9999;
   width:100vw;
 }
+
+.onlyPhone{
+    display: none;
+  }
+
+@media only screen and (max-width: 600px) {
+  .onlyPhone{
+    display: block;
+  }
+}
